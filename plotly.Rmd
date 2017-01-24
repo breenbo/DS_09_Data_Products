@@ -1,0 +1,35 @@
+---
+title: "Plotly presentation"
+author: "Bruno Berrehuel"
+date: "January 24, 2017"
+output: ioslides_presentation 
+#output: beamer_presentation # can do beamer slides too
+# compile with ùkr
+---
+
+## Murder vs population and illiteracy
+
+### Plotly
+
+```{r message=FALSE, echo=FALSE}
+library(dplyr)
+state <- as.data.frame(state.x77)
+state <- mutate(state, density=Population/Area)
+
+library(plotly)
+plot_ly(state, x=~Population, y=~Murder, size=~I(Illiteracy*200), color=~Illiteracy, text=~row.names(state.x77))
+```
+
+## Murder vs population and illiteracy
+
+### Code
+
+```{r message=FALSE, eval=FALSE}
+library(dplyr)
+state <- as.data.frame(state.x77)
+state <- mutate(state, density=Population/Area)
+
+library(plotly)
+plot_ly(state, x=~Population, y=~Murder, size=~I(Illiteracy*200), 
+        color=~Illiteracy, text=~row.names(state.x77))
+```

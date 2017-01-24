@@ -1,0 +1,24 @@
+# World cities of more than 1 billion people
+by Bruno Berrehuel
+
+January 22, 2017.
+
+Source : <http://simplemaps.com>
+
+```{r message=FALSE, echo=FALSE}
+if(!file.exists("city.csv")){
+    download.file("http://simplemaps.com/static/demos/resources/world-cities/world_cities.csv", "city.csv")
+}
+
+library(dplyr)
+cities <- read.csv("city.csv")
+cities <- subset(cities, select=c("city", "lat", "lng", "pop"))
+citiesM <- subset(cities, pop >= 1000000)
+citiesM <- mutate(citiesM, popup=paste(city, ":", pop, "res."))
+
+library(leaflet)
+citiesM %>% 
+    leaflet() %>% 
+    addTiles() %>%
+    addCircles(weight=1, radius= sqrt(citiesM$pop)*50, popup=citiesM$popup)
+```

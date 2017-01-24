@@ -1,0 +1,4 @@
+Application with mtcars datas to plot X vs Y (columns) and fit 3 or 4 regressions models.
+Choose of X,Y by drop menu or checkboxes 
+Choose of regression models by checkbox
+Possibility to fit Y vs X and Z and ...
