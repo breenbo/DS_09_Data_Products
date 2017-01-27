@@ -1,20 +1,20 @@
 # tuto : https://www.r-bloggers.com/building-shiny-apps-an-interactive-tutorial/ 
 
-library(shiny)
-library(ggplot2)
+require(shiny)
+require(ggplot2)
 
 shinyServer(function(input,output) { # function which do something to be printed
+                # get and order names of dataset to populate X and Y menus
                 name <- reactive({
                     names(data.frame(get(input$dataset)))[order(names(data.frame(get(input$dataset))))]
                 })
-                # output$colNames <- renderPrint({
-                    # name()
-                # })
+                # menu to upload .csv file
                 output$csv <- renderUI({
                     if(input$dataset=="csv_file"){
                         fileInput("csvFile", "Choose a csv file", accept=".csv")
                     }
                 })
+                # get name of .csv file to populate scatterplot title
                 namesCSV <- reactive({
                     inFile <- input$csvFile
                     if(is.null(inFile)){
@@ -22,6 +22,7 @@ shinyServer(function(input,output) { # function which do something to be printed
                     }
                     names(read.csv(inFile$datapath))
                 }) 
+                # get the data of the uploaded file
                 dataCSV <- reactive({
                     inFile <- input$csvFile
                     if(is.null(inFile)){
@@ -29,6 +30,8 @@ shinyServer(function(input,output) { # function which do something to be printed
                     }
                     read.csv(inFile$datapath)
                 }) 
+                # create and populate X menu with variables names
+                # depending of csv or R dataset
                 output$xvar <- renderUI({
                     if(input$dataset=="csv_file" && is.null(input$csvFile)){
                         return()
@@ -38,6 +41,8 @@ shinyServer(function(input,output) { # function which do something to be printed
                         radioButtons("xVar", "Choose X var", name())
                     }
                 })
+                # create and populate Y menu with variables names
+                # depending of csv or R dataset
                 output$yvar <- renderUI({
                     if(input$dataset=="csv_file" && is.null(input$csvFile)){
                         return()
@@ -47,9 +52,19 @@ shinyServer(function(input,output) { # function which do something to be printed
                         radioButtons("yVar", "Choose Y var", name())
                     }
                 })
+                # set scatterplot title with .csv name or dataset name
                 output$title <- renderUI({
-                    h2(input$dataset)
+                    if(input$dataset=="csv_file"){
+                        h2(input$csvFile["name"])
+                    } else {
+                        h2(input$dataset)
+                    }
                 })
+                # set variables names studyed in Scatterplot
+                output$subtitle <- renderUI({
+                    h3(paste(input$yVar, "vs", input$xVar))
+                })
+                # plot scatterplot
                 output$coolPlot <- renderPlot({
                     if(is.null(input$dataset)){
                         return()
@@ -57,42 +72,66 @@ shinyServer(function(input,output) { # function which do something to be printed
                         return()
                     } else if(input$dataset=="csv_file"){
                         ggplot(dataCSV(), aes(get(input$xVar),get(input$yVar))) + geom_jitter() + xlab(input$xVar) + ylab(input$yVar)
-                        # attach(dataCSV())
-                            # par(fig=c(0,0.8,0,0.87))
-                                # plot(get(input$xVar), get(input$yVar), xlab=input$xVar, ylab=input$yVar, pch=16)
-                            # par(fig=c(0,0.8,0.53,1), new=T)
-                                # boxplot(get(input$xVar), horizontal=T, axes=F, col="green")
-                            # par(fig=c(0.7,0.87,0,0.85), new=T)
-                                # boxplot(get(input$yVar), axes=F, col="blue")
-                        # detach(dataCSV())
-                    } else if(input$dataset!="csv_file"){
+                    } else {
                         ggplot(data.frame(get(input$dataset)), aes(get(input$xVar),get(input$yVar))) + geom_jitter() + xlab(input$xVar) + ylab(input$yVar)
-                        # attach(data.frame(get(input$dataset)))
-                            # par(fig=c(0,0.8,0,0.87))
-                                # plot(get(input$xVar), get(input$yVar), xlab=input$xVar, ylab=input$yVar, pch=16)
-                            # par(fig=c(0,0.8,0.53,1), new=T)
-                                # boxplot(get(input$xVar), horizontal=T, axes=F, col="green")
-                            # par(fig=c(0.7,0.87,0,0.85), new=T)
-                                # boxplot(get(input$yVar), axes=F, col="blue")
-                        # detach(data.frame(get(input$dataset)))
                     }
-                    # if(input$plotVar=="scatterplot"){
-                        # ggplot(data.frame(get(input$dataset)), aes(get(input$xVar),get(input$yVar))) + geom_jitter() + xlab(input$xVar) + ylab(input$yVar)
-                    # } else if(input$plotVar=="histogram"){
-                        # ggplot(data.frame(get(input$dataset)), aes(get(input$xVar))) + geom_histogram() + xlab(input$xVar) + ylab("count")
-                    # } 
                 })
-                output$coolPlot2 <- renderPlot({
+                # plot histogram for X
+                output$histPlotX <- renderPlot({
                     if(is.null(input$dataset)){
                         return()
                     } else if(input$dataset=="csv_file" && is.null(input$csvFile)){
                         return()
+                    } else if(input$dataset=="csv_file"){
+                        ggplot(dataCSV(), aes(get(input$xVar))) + geom_histogram(fill="green", color="black", bins=50) + xlab(input$xVar) + ylab("count")
+                    } else {
+                        ggplot(data.frame(get(input$dataset)), aes(get(input$xVar))) + geom_histogram(fill="green", color="black", bins=50) + xlab(input$xVar) + ylab("count")
                     }
-                    ggplot(data.frame(get(input$dataset)), aes(get(input$xVar))) + geom_histogram() + xlab(input$xVar) + ylab("count")
-                    # attach(data.frame(get(input$dataset)))
-                        # par(mfrow=c(1,2))
-                            # hist(get(input$xVar), main="", xlab=input$xVar, breaks=20, col="green")
-                            # hist(get(input$yVar), main="", xlab=input$yVar, breaks=20, col="blue")
-                    # detach(data.frame(get(input$dataset)))
+                })
+                # plot histogram for Y
+                output$histPlotY <- renderPlot({
+                    if(is.null(input$dataset)){
+                        return()
+                    } else if(input$dataset=="csv_file" && is.null(input$csvFile)){
+                        return()
+                    } else if(input$dataset=="csv_file"){
+                        ggplot(dataCSV(), aes(get(input$yVar))) + geom_histogram(fill="blue", color="black", bins=50) + xlab(input$yVar) + ylab("count")
+                    } else {
+                        ggplot(data.frame(get(input$dataset)), aes(get(input$yVar))) + geom_histogram(fill="blue", color="black", bins=50) + xlab(input$yVar) + ylab("count")
+                    }
+                })
+                # print boxplot of X
+                output$sumHistX <- renderPlot({
+                    if(input$dataset=="csv_file"){
+                        ggplot(dataCSV(), aes(x=input$xVar,y=get(input$xVar))) + geom_boxplot(fill="green", color="black") + xlab(input$xVar) + ylab("")
+                    } else {
+                        ggplot(data.frame(get(input$dataset)), aes(x=input$xVar,y=get(input$xVar))) + geom_boxplot(fill="green", color="black") + xlab(input$xVar) + ylab("")
+                    }
+                })
+                # print boxplot of Y
+                output$sumHistY <- renderPlot({
+                    if(input$dataset=="csv_file"){
+                        ggplot(dataCSV(), aes(x=input$yVar,y=get(input$yVar))) + geom_boxplot(fill="blue", color="black") + xlab(input$yVar) + ylab("")
+                    } else {
+                        ggplot(data.frame(get(input$dataset)), aes(x=input$yVar,y=get(input$yVar))) + geom_boxplot(fill="blue", color="black") + xlab(input$yVar) + ylab("")
+                    }
+                })
+                # print summary of all variables
+                output$sum <- renderPrint({
+                    if(input$dataset=="csv_file"){
+                        summary(dataCSV())
+                    } else {
+                        summary(get(input$dataset))
+                    }
+                })
+                # print structure of the dataset
+                output$dataStr <- shiny::renderDataTable({
+                    if(input$dataset=="csv_file"){
+                        dataStructure <- capture.output(str(dataCSV()))
+                        data.frame(dataStructure)
+                    } else {
+                    dataStructure <- capture.output(str(get(input$dataset)))
+                    data.frame(dataStructure)
+                    }
                 })
 })
