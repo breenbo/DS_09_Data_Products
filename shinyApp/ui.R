@@ -14,6 +14,7 @@ shinyUI(fluidPage(# describe type of page
                                             }
                                        h1{
                                            padding:10px 0 0px 10px;
+                                           margin:10px -15px 0 -15px;
                                            background-color:hsl(280,100%,75%);
                                        }
                                        h2{
@@ -27,8 +28,15 @@ shinyUI(fluidPage(# describe type of page
                                            padding:10px 0 10px 10px;
                                        }
                                        .logo{
-                                           width:2.5vw;
-                                           margin-bottom:0px;
+                                           float:right;
+                                           width:3vw;
+                                           margin-right:10px;
+                                           margin-top:-10px;
+                                       }
+                                       footer{
+                                           background-color:hsl(280,50%,95%);
+                                           padding:15px 0;
+                                           margin-top:10px;
                                        }
                                        ")
                               )
@@ -110,11 +118,10 @@ shinyUI(fluidPage(# describe type of page
                                   )
                         )
               ),
-                            tags$hr(),
               tags$footer(HTML("
-                               <a href='https://fr.linkedin.com/in/brunoberrehuel' target='_blank'><img class='logo' src='in.svg' alt='linkedin logo'></a>
                                <a href='https://bitbucket.org/breenbo' target='_blank'><img class='logo' src='bitbucket.svg' alt='bitbucket logo'></a>
                                <a href='https://github.com/breenbo' target='_blank'><img class='logo' src='github.svg' alt='github logo'></a>
+                               <a href='https://fr.linkedin.com/in/brunoberrehuel' target='_blank'><img class='logo' src='in.svg' alt='linkedin logo'></a>
                                Designed and coded by <em>Bruno BERREHUEL</em>.
                                "
                                )
