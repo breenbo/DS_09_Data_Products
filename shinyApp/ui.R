@@ -5,7 +5,34 @@
 require(shiny)
 
 shinyUI(fluidPage(# describe type of page
-              titlePanel("Exploratory Machine"),
+                  headerPanel(HTML("<b>Exploratory Machine</b>
+                        <i><h3>Change your mind on R</h3></i>
+                        "), windowTitle="Exploratory Machine"),
+                  tags$head(tags$style(HTML("
+                                            body{
+                                                background-color:hsl(0,0%,98%);
+                                            }
+                                       h1{
+                                           padding:10px 0 0px 10px;
+                                           background-color:hsl(280,100%,75%);
+                                       }
+                                       h2{
+                                           background-color:hsl(280,50%,83%);
+                                           padding:10px 0 10px 10px;
+                                           margin-top:0px;
+                                       }
+                                       h3{
+                                           background-color:hsl(280,50%,90%);
+                                           margin-top:5px;
+                                           padding:10px 0 10px 10px;
+                                       }
+                                       .logo{
+                                           width:2.5vw;
+                                           margin-bottom:0px;
+                                       }
+                                       ")
+                              )
+                  ),
               sidebarLayout( # page with sidebar for navigation, etc.
                         sidebarPanel(
                                      # dropdown selection menu of the dataset
@@ -23,7 +50,6 @@ shinyUI(fluidPage(# describe type of page
                                   tabsetPanel(
                                               tabPanel("Users Manual",
                                                        h3("Welcome to the Exploratory Machine"),
-                                                       tags$hr(),
                                                        p("Here you can : "),
                                                        tags$ol(
                                                                tags$li("In the side panel :",
@@ -35,7 +61,7 @@ shinyUI(fluidPage(# describe type of page
                                                                tags$li("In the main panel :",
                                                                        tags$ol(
                                                                                tags$ul("- view a scatterplot of the 2 choosen varaibles in the tab 'Scatterplot'"),
-                                                                               tags$ul("- view the distribution (histograms and boxplots) of this variables in tab 'Histograms'"),
+                                                                               tags$ul("- view the distribution (histograms and boxplots) of this variables in tab 'Distributions'"),
                                                                                tags$ul("- view the head, tail and a summary of all variables in tab 'Summary'"),
                                                                                tags$ul("- view the structure (str() function) of the dataset in tab 'Dataset Structure'")
                                                                                )
@@ -43,7 +69,6 @@ shinyUI(fluidPage(# describe type of page
                                                                ),
                                                        p("All plots are reactive, and it might be little waiting time for calculation, especially with .csv files."),
                                                        p("It might be some fugitive error messages, but they have no consequences"),
-                                                       tags$hr(),
                                                        h4("So you'll have a useful quick overview of the dataset you're studying.")
                                                        ),
                                               tabPanel("Scatterplot",
@@ -53,35 +78,46 @@ shinyUI(fluidPage(# describe type of page
                                                       # plot the scatterplot
                                                       plotOutput("coolPlot")
                                               ),
-                                              tabPanel("Histograms",
-                                                      h3("Histograms"),
+                                              tabPanel("Distributions",
+                                                       uiOutput("distTitle"),
                                                       # plot histo and boxplot on the same line
+                                                       uiOutput("distSubTitleX"),
                                                       fluidRow(
                                                                column(9, plotOutput("histPlotX")),
                                                                column(3, plotOutput("sumHistX"))
                                                        ),
                                                       # plot histo and boxplot on the same line
+                                                       uiOutput("distSubTitleY"),
                                                       fluidRow(
                                                                column(9, plotOutput("histPlotY")),
                                                                column(3, plotOutput("sumHistY"))
                                                        )
                                               ),
                                               tabPanel("Summary", 
+                                                       uiOutput("sumTitle"),
                                                        h3("Head"),
                                                        dataTableOutput("head"),
-                                                       tags$hr(),
                                                        h3("Tail"),
                                                        dataTableOutput("tail"),
-                                                       tags$hr(),
                                                        h3("Summary"),
                                                        # verbatimTextOutput("sum") 
                                                        dataTableOutput("sum")
                                                        ),
                                               tabPanel("Dataset Structure",
+                                                       uiOutput("strTitle"),
                                                        shiny::dataTableOutput("dataStr")
                                               )
                                   )
                         )
+              ),
+                            tags$hr(),
+              tags$footer(HTML("
+                               <a href='https://fr.linkedin.com/in/brunoberrehuel' target='_blank'><img class='logo' src='in.svg' alt='linkedin logo'></a>
+                               <a href='https://bitbucket.org/breenbo' target='_blank'><img class='logo' src='bitbucket.svg' alt='bitbucket logo'></a>
+                               <a href='https://github.com/breenbo' target='_blank'><img class='logo' src='github.svg' alt='github logo'></a>
+                               Designed and coded by <em>Bruno BERREHUEL</em>.
+                               "
+                               )
               )
       )
 )

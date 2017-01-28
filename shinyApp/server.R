@@ -85,9 +85,20 @@ shinyServer(function(input,output) { # function which do something to be printed
                     }
                 })
                 # ------------------------------------------------------------ 
-                # Histogram tab
+                # Distribution tab
                 # ------------------------------------------------------------ 
+                # subtitle for X
+                output$distSubTitleX <- renderUI({
+                    h3(input$xVar)
+                })
                 # plot histogram for X
+                output$distTitle <- renderUI({
+                    if(input$dataset=="csv_file"){
+                        h2(input$csvFile["name"])
+                    } else {
+                        h2(input$dataset)
+                    }
+                })
                 output$histPlotX <- renderPlot({
                     if(is.null(input$dataset)){
                         return()
@@ -99,6 +110,18 @@ shinyServer(function(input,output) { # function which do something to be printed
                         ggplot(data.frame(get(input$dataset)), aes(get(input$xVar))) + geom_histogram(fill="green", color="black", bins=50) + xlab(input$xVar) + ylab("count")
                     }
                 })
+                # print boxplot of X
+                output$sumHistX <- renderPlot({
+                    if(input$dataset=="csv_file"){
+                        ggplot(dataCSV(), aes(x=input$xVar,y=get(input$xVar))) + geom_boxplot(fill="green", color="black") + xlab(input$xVar) + ylab("")
+                    } else {
+                        ggplot(data.frame(get(input$dataset)), aes(x=input$xVar,y=get(input$xVar))) + geom_boxplot(fill="green", color="black") + xlab(input$xVar) + ylab("")
+                    }
+                })
+                # subtitle for Y
+                output$distSubTitleY <- renderUI({
+                    h3(input$yVar)
+                })
                 # plot histogram for Y
                 output$histPlotY <- renderPlot({
                     if(is.null(input$dataset)){
@@ -109,14 +132,6 @@ shinyServer(function(input,output) { # function which do something to be printed
                         ggplot(dataCSV(), aes(get(input$yVar))) + geom_histogram(fill="blue", color="black", bins=50) + xlab(input$yVar) + ylab("count")
                     } else {
                         ggplot(data.frame(get(input$dataset)), aes(get(input$yVar))) + geom_histogram(fill="blue", color="black", bins=50) + xlab(input$yVar) + ylab("count")
-                    }
-                })
-                # print boxplot of X
-                output$sumHistX <- renderPlot({
-                    if(input$dataset=="csv_file"){
-                        ggplot(dataCSV(), aes(x=input$xVar,y=get(input$xVar))) + geom_boxplot(fill="green", color="black") + xlab(input$xVar) + ylab("")
-                    } else {
-                        ggplot(data.frame(get(input$dataset)), aes(x=input$xVar,y=get(input$xVar))) + geom_boxplot(fill="green", color="black") + xlab(input$xVar) + ylab("")
                     }
                 })
                 # print boxplot of Y
@@ -131,6 +146,13 @@ shinyServer(function(input,output) { # function which do something to be printed
                 # summary tab
                 # ------------------------------------------------------------ 
                 # print head of dataset
+                output$sumTitle <- renderUI({
+                    if(input$dataset=="csv_file"){
+                        h2(input$csvFile["name"])
+                    } else {
+                        h2(input$dataset)
+                    }
+                })
                 output$head <- renderDataTable({
                     if(input$dataset=="csv_file"){
                         head(dataCSV())
@@ -159,6 +181,13 @@ shinyServer(function(input,output) { # function which do something to be printed
                 # structure tab
                 # ------------------------------------------------------------ 
                 # print structure of the dataset
+                output$strTitle <- renderUI({
+                    if(input$dataset=="csv_file"){
+                        h2(input$csvFile["name"])
+                    } else {
+                        h2(input$dataset)
+                    }
+                })
                 output$dataStr <- shiny::renderDataTable({
                     if(input$dataset=="csv_file"){
                         dataStructure <- capture.output(str(dataCSV()))
