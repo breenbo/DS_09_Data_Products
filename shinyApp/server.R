@@ -4,6 +4,9 @@ require(shiny)
 require(ggplot2)
 
 shinyServer(function(input,output) { # function which do something to be printed
+                # ------------------------------------------------------------ 
+                # side Panel
+                # ------------------------------------------------------------ 
                 # get and order names of dataset to populate X and Y menus
                 name <- reactive({
                     names(data.frame(get(input$dataset)))[order(names(data.frame(get(input$dataset))))]
@@ -52,6 +55,11 @@ shinyServer(function(input,output) { # function which do something to be printed
                         radioButtons("yVar", "Choose Y var", name())
                     }
                 })
+                # ------------------------------------------------------------ 
+                # main panel
+                # ------------------------------------------------------------ 
+                # scatterplot tab
+                # ------------------------------------------------------------ 
                 # set scatterplot title with .csv name or dataset name
                 output$title <- renderUI({
                     if(input$dataset=="csv_file"){
@@ -76,6 +84,9 @@ shinyServer(function(input,output) { # function which do something to be printed
                         ggplot(data.frame(get(input$dataset)), aes(get(input$xVar),get(input$yVar))) + geom_jitter() + xlab(input$xVar) + ylab(input$yVar)
                     }
                 })
+                # ------------------------------------------------------------ 
+                # Histogram tab
+                # ------------------------------------------------------------ 
                 # plot histogram for X
                 output$histPlotX <- renderPlot({
                     if(is.null(input$dataset)){
@@ -116,14 +127,37 @@ shinyServer(function(input,output) { # function which do something to be printed
                         ggplot(data.frame(get(input$dataset)), aes(x=input$yVar,y=get(input$yVar))) + geom_boxplot(fill="blue", color="black") + xlab(input$yVar) + ylab("")
                     }
                 })
+                # ------------------------------------------------------------ 
+                # summary tab
+                # ------------------------------------------------------------ 
+                # print head of dataset
+                output$head <- renderDataTable({
+                    if(input$dataset=="csv_file"){
+                        head(dataCSV())
+                    } else {
+                        head(get(input$dataset))
+                    }
+                })
+                # print tail of dataset
+                output$tail <- renderDataTable({
+                    if(input$dataset=="csv_file"){
+                        tail(dataCSV())
+                    } else {
+                        tail(get(input$dataset))
+                    }
+                })
                 # print summary of all variables
-                output$sum <- renderPrint({
+                # output$sum <- renderPrint({
+                output$sum <- renderDataTable({
                     if(input$dataset=="csv_file"){
                         summary(dataCSV())
                     } else {
                         summary(get(input$dataset))
                     }
                 })
+                # ------------------------------------------------------------ 
+                # structure tab
+                # ------------------------------------------------------------ 
                 # print structure of the dataset
                 output$dataStr <- shiny::renderDataTable({
                     if(input$dataset=="csv_file"){

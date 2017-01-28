@@ -36,8 +36,8 @@ shinyUI(fluidPage(# describe type of page
                                                                        tags$ol(
                                                                                tags$ul("- view a scatterplot of the 2 choosen varaibles in the tab 'Scatterplot'"),
                                                                                tags$ul("- view the distribution (histograms and boxplots) of this variables in tab 'Histograms'"),
-                                                                               tags$ul("- view a summary of all variables in tab 'Summary'"),
-                                                                               tags$ul("- view the structure of the dataset in tab 'Dataset Structure'")
+                                                                               tags$ul("- view the head, tail and a summary of all variables in tab 'Summary'"),
+                                                                               tags$ul("- view the structure (str() function) of the dataset in tab 'Dataset Structure'")
                                                                                )
                                                                        )
                                                                ),
@@ -67,10 +67,18 @@ shinyUI(fluidPage(# describe type of page
                                                        )
                                               ),
                                               tabPanel("Summary", 
-                                                      verbatimTextOutput("sum") 
+                                                       h3("Head"),
+                                                       dataTableOutput("head"),
+                                                       tags$hr(),
+                                                       h3("Tail"),
+                                                       dataTableOutput("tail"),
+                                                       tags$hr(),
+                                                       h3("Summary"),
+                                                       # verbatimTextOutput("sum") 
+                                                       dataTableOutput("sum")
                                                        ),
                                               tabPanel("Dataset Structure",
-                                                      shiny::dataTableOutput("dataStr")
+                                                       shiny::dataTableOutput("dataStr")
                                               )
                                   )
                         )

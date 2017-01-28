@@ -1,0 +1,58 @@
+---
+title: "Exploratory Machine"
+subtitle: "Data Product project"
+author: "Bruno Berrehuel"
+date: "January 28, 2017"
+output: ioslides_presentation 
+#output: beamer_presentation # can do beamer slides too
+# compile with ùkr
+---
+
+## new page
+Some content very interesting
+
+### outstanding subtitle
+
+#### subsubtitle
+
+Some content.
+
+- item a
+- item b
+
+1. bullet 1
+1. bullet 2
+
+
+***
+A slide without title
+
+## formatting text
+
+Plain text
+
+*italicized*
+
+**bold text**
+
+`code : for (i %in% 1:10) {
+print(i+10)
+}`
+
+## R code chunk - compiled
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment=NA) # default setting
+```
+
+```{r}
+head(mtcars)
+```
+
+## plot with R
+
+```{r plot, fig.align="center", fig.cap="Awesome figure"}
+plot(mtcars$wt, mtcars$mpg, xlab="weight", ylab="miles per gallon")
+# can add echo=FALSE to have just plot
+# all knitr options are available
+```
