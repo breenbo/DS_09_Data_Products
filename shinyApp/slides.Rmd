@@ -2,14 +2,43 @@
 title: "Exploratory Machine"
 subtitle: "Data Product project"
 author: "Bruno Berrehuel"
+github: "www.github.com"
 date: "January 28, 2017"
 output: ioslides_presentation 
 #output: beamer_presentation # can do beamer slides too
 # compile with ùkr
 ---
 
-## new page
+<style>
+#title {
+    background-color:hsl(280,100%,75%);
+    color:black;
+    padding-right:187px;
+    padding-left:10px;
+    margin-left:-10px;
+}
+#subtitle {
+    background-color:hsl(280,50%,75%);
+    color:black;
+    padding-right:187px;
+    padding-left:10px;
+    margin-left:-10px;
+}
+</style>
+
+## Exploratory Machine | hands on
+
+## Side Panel
+
+## Scatterplot tab
+
+## Distribution tab
+
+## Summary and Structure tab
+
 Some content very interesting
+
+## cheatsheet
 
 ### outstanding subtitle
 
@@ -22,12 +51,6 @@ Some content.
 
 1. bullet 1
 1. bullet 2
-
-
-***
-A slide without title
-
-## formatting text
 
 Plain text
 

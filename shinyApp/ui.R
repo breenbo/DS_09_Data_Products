@@ -9,23 +9,30 @@ shinyUI(fluidPage(# describe type of page
                         <i><h3>Change your mind on R</h3></i>
                         "), windowTitle="Exploratory Machine"),
                   tags$head(tags$style(HTML("
-                                            body{
-                                                background-color:hsl(0,0%,98%);
-                                            }
+                                       body{
+                                           background-color:hsl(0,0%,98%);
+                                       
+                                       }
                                        h1{
                                            padding:10px 0 0px 10px;
                                            margin:10px -15px 0 -15px;
                                            background-color:hsl(280,100%,75%);
+                                           border-radius:5px;
+                                           box-shadow: 4px 4px 3px 0px rgba(0, 0, 0, 0.2), 4px 4px 3px 0px rgba(0, 0, 0, 0.19);
                                        }
                                        h2{
                                            background-color:hsl(280,50%,83%);
                                            padding:10px 0 10px 10px;
                                            margin-top:0px;
+                                           border-radius:5px;
+                                           box-shadow: 4px 4px 3px 0px rgba(0, 0, 0, 0.2), 4px 4px 3px 0px rgba(0, 0, 0, 0.19);
                                        }
                                        h3{
                                            background-color:hsl(280,50%,90%);
                                            margin-top:5px;
                                            padding:10px 0 10px 10px;
+                                           border-radius:5px;
+                                           box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.2), 2px 2px 1px 0px rgba(0, 0, 0, 0.19);
                                        }
                                        .logo{
                                            float:right;
@@ -35,8 +42,10 @@ shinyUI(fluidPage(# describe type of page
                                        }
                                        footer{
                                            background-color:hsl(280,50%,95%);
-                                           padding:15px 0;
+                                           padding:15px 0 15px 10px;
                                            margin-top:10px;
+                                           border-radius:5px;
+                                           box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2), 1px 1px 1px 0px rgba(0, 0, 0, 0.19);
                                        }
                                        ")
                               )
