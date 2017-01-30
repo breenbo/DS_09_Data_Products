@@ -35,6 +35,12 @@ The results are shown on 4 tabs :
 The chosen variables are plotted in a scatterplot like the following :
 
 
+
+```r
+require(ggplot2)
+ggplot(data=mtcars, aes(x=hp, y=mpg)) + geom_jitter() + xlab("hp") + ylab("mpg")
+```
+
 <img src="assets/fig/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 --- &twocol w1:75% w2:15%
@@ -55,4 +61,3 @@ Finally, the head, the tail, and the structure of the dataset are shown in table
 - Head shows first 6 rows of datas with the head() function.
 - Tail shows last 6 rows of datas with the tail() function.
 - Structure is shown with the str() function.
-

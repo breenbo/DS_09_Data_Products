@@ -83,6 +83,10 @@ All the variables appears after loading, and they can be selected in order to be
   <article data-timings="">
     <p>The chosen variables are plotted in a scatterplot like the following :</p>
 
+<pre><code class="r">require(ggplot2)
+ggplot(data=mtcars, aes(x=hp, y=mpg)) + geom_jitter() + xlab(&quot;hp&quot;) + ylab(&quot;mpg&quot;)
+</code></pre>
+
 <p><img src="assets/fig/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
 
   </article>

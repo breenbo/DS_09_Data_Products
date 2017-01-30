@@ -35,7 +35,7 @@ The results are shown on 4 tabs :
 The chosen variables are plotted in a scatterplot like the following :
 
 
-```{r, echo=FALSE, message=FALSE, fig.height=6, fig.width=12, fig.align="center"}
+```{r, message=FALSE, fig.height=5, fig.width=12, fig.align="center"}
 require(ggplot2)
 ggplot(data=mtcars, aes(x=hp, y=mpg)) + geom_jitter() + xlab("hp") + ylab("mpg")
 ```
@@ -62,4 +62,3 @@ Finally, the head, the tail, and the structure of the dataset are shown in table
 - Head shows first 6 rows of datas with the head() function.
 - Tail shows last 6 rows of datas with the tail() function.
 - Structure is shown with the str() function.
-
