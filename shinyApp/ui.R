@@ -53,7 +53,7 @@ shinyUI(fluidPage(# describe type of page
               sidebarLayout( # page with sidebar for navigation, etc.
                         sidebarPanel(
                                      # dropdown selection menu of the dataset
-                                     selectInput("dataset", "Choose a dataset", c("mtcars", "state.x77", "iris", "InsectSprays", "csv_file")),
+                                     selectInput("dataset", "Choose a dataset", c("mtcars", "state.x77", "iris", "csv_file")),
                                      # menu to upload .csv file, appears only if csv selected
                                      uiOutput("csv"),
                                      # display X and Y on the same line
@@ -79,6 +79,8 @@ shinyUI(fluidPage(# describe type of page
                                                                        tags$ol(
                                                                                tags$ul("- view a scatterplot of the 2 choosen varaibles in the tab 'Scatterplot'"),
                                                                                tags$ul("- view the distribution (histograms and boxplots) of this variables in tab 'Distributions'"),
+                                                                               tags$ul("- view the distribution of the NAs in the variables in tab 'NAs'"),
+                                                                               tags$ul("- view a correlation matrix of the variables in tab 'Correlation'. BEWARE, it might take some time to plot depending with several variables."),
                                                                                tags$ul("- view the head, tail and a summary of all variables in tab 'Summary'"),
                                                                                tags$ul("- view the structure (str() function) of the dataset in tab 'Dataset Structure'")
                                                                                )
@@ -110,6 +112,16 @@ shinyUI(fluidPage(# describe type of page
                                                                column(3, plotOutput("sumHistY"))
                                                        )
                                               ),
+                                              tabPanel("NAs", 
+                                                       uiOutput("naTitle"),
+                                                       h3("NAs distribution"),
+                                                       plotOutput("naPlot")
+                                                       ),
+                                              tabPanel("Correlation",
+                                                       uiOutput("corTitle"),
+                                                       h3("Correlation matrix"),
+                                                       plotOutput("corPlot")
+                                                       ),
                                               tabPanel("Summary", 
                                                        uiOutput("sumTitle"),
                                                        h3("Head"),

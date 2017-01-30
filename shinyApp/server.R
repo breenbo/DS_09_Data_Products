@@ -2,6 +2,7 @@
 
 require(shiny)
 require(ggplot2)
+require(corrgram)
 
 shinyServer(function(input,output) { # function which do something to be printed
                 # ------------------------------------------------------------ 
@@ -70,7 +71,7 @@ shinyServer(function(input,output) { # function which do something to be printed
                 })
                 # set variables names studyed in Scatterplot
                 output$subtitle <- renderUI({
-                    h3(paste(input$yVar, "vs", input$xVar))
+                    h3(paste(input$yVar, "VS", input$xVar))
                 })
                 # plot scatterplot
                 output$coolPlot <- renderPlot({
@@ -145,9 +146,53 @@ shinyServer(function(input,output) { # function which do something to be printed
                 # ------------------------------------------------------------ 
                 # NA tab
                 # ------------------------------------------------------------ 
+                output$naTitle <- renderUI({
+                    if(input$dataset=="csv_file"){
+                        h2(input$csvFile["name"])
+                    } else {
+                        h2(input$dataset)
+                    }
+                })
+                meanNA <- reactive({
+                    if(input$dataset=="csv_file"){
+                        colNA <- apply(dataCSV(), 2, is.na)
+                    } else {
+                        colNA <- apply(get(input$dataset), 2, is.na)
+                    }
+                    meanNA <- apply(colNA, 2, mean)
+                    index <- 1:ncol(colNA)
+                    meanNA <- data.frame(cbind(meanNA,index))
+                })
+                output$naPlot <- renderPlot({
+                    if(is.null(input$dataset)){
+                        return()
+                    } else if(input$dataset=="csv_file" && is.null(input$csvFile)){
+                        return()
+                    } else {
+                        plot(x=meanNA()$index, y=meanNA()$meanNA, type='h', col='red', xlab='index', ylab='mean of NA', ylim=c(0,1))
+                    }
+                })
                 # ------------------------------------------------------------ 
                 # correlation tab
                 # ------------------------------------------------------------ 
+                output$corTitle <- renderUI({
+                    if(input$dataset=="csv_file"){
+                        h2(input$csvFile["name"])
+                    } else {
+                        h2(input$dataset)
+                    }
+                })
+                output$corPlot <- renderPlot({
+                    if(is.null(input$dataset)){
+                        return()
+                    } else if(input$dataset=="csv_file" && is.null(input$csvFile)){
+                        return()
+                    } else if(input$dataset=="csv_file"){
+                        corrgram(dataCSV(), lower.panel=panel.shade, upper.panel=panel.pts, text.panel=panel.txt, pch=16)
+                    } else {
+                        corrgram(get(input$dataset), lower.panel=panel.shade, upper.panel=panel.pts, text.panel=panel.txt, pch=16)
+                    }
+                })
                 # ------------------------------------------------------------ 
                 # summary tab
                 # ------------------------------------------------------------ 
