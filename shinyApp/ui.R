@@ -119,7 +119,7 @@ shinyUI(fluidPage(# describe type of page
                                                        h3("Summary"),
                                                        # verbatimTextOutput("sum") 
                                                        dataTableOutput("sum")
-                                                       ),
+                                               ),
                                               tabPanel("Dataset Structure",
                                                        uiOutput("strTitle"),
                                                        shiny::dataTableOutput("dataStr")
