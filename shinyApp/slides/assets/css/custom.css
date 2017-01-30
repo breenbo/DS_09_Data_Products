@@ -1,0 +1,39 @@
+.title-slide{
+    background-color:white;
+}
+
+.title-slide hgroup > h1{
+    color:black;
+    background-color:hsl(280,100%,75%);
+    padding-left:10px;
+    padding-top:1vh;
+    padding-bottom:1vh;
+    margin-left:-10px;
+    margin-right:-40vw;
+    border-radius:5px;
+    box-shadow: 4px 4px 3px 0px rgba(0, 0, 0, 0.2), 4px 4px 3px 0px rgba(0, 0, 0, 0.19);
+}
+
+.title-slide hgroup > h2{
+    color:hsl(0,0%,30%);
+    margin-top:1vh;
+}
+
+slide:not(.segue)  h2{
+    color: black;
+    background-color:hsl(280,50%,90%);
+    padding-left:10px;
+    padding-top:0.5vh;
+    padding-bottom:1vh;
+    margin-left:-10px;
+    margin-right:-5vw;
+    border-radius:5px;
+    box-shadow: 4px 4px 3px 0px rgba(0, 0, 0, 0.2), 4px 4px 3px 0px rgba(0, 0, 0, 0.19);
+}
+
+slide:not(.segue) h3{
+    color:black;
+    border-bottom:solid 1px;
+    border-bottom-color:hsl(0,0%,60%);
+    margin-bottom:10px;
+}
