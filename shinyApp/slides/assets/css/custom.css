@@ -1,3 +1,11 @@
+em {
+    font-style:italic;
+}
+
+strong {
+    font-weight:bold;
+}
+
 .title-slide{
     background-color:white;
 }
@@ -17,6 +25,10 @@
 .title-slide hgroup > h2{
     color:hsl(0,0%,30%);
     margin-top:1vh;
+}
+
+slide:not(.segue) {
+    background-color:white;
 }
 
 slide:not(.segue)  h2{

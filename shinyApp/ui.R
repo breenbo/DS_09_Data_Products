@@ -88,7 +88,8 @@ shinyUI(fluidPage(# describe type of page
                                                                ),
                                                        p("All plots are reactive, and it might be little waiting time for calculation, especially with .csv files."),
                                                        p("It might be some fugitive error messages, but they have no consequences"),
-                                                       h4("So you'll have a useful quick overview of the dataset you're studying.")
+                                                       h4("So you'll have a useful quick overview of the dataset you're studying."),
+                                                       p(HTML("You can find a <a href='https://breenbo.github.io/DS_09_Data_Products/shinyApp/slides/index.html' target='blank'>more complete presentation with examples.</a>"))
                                                        ),
                                               tabPanel("Scatterplot",
                                                        # change title and subtitle depending of the variables

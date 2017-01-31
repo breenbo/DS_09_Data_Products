@@ -35,7 +35,7 @@
   <hgroup class="auto-fadein">
     <h1>Exploratory Machine</h1>
     <h2>Data Product Project</h2>
-    <p>by Bruno Berrehuel<br/>January 29th, 2017</p>
+    <p>by Bruno Berrehuel<br/>Data Scientist apprentice</p>
   </hgroup>
   <article></article>  
 </slide>
@@ -51,22 +51,24 @@
 
 <h3>Side Panel</h3>
 
-<p>It is possible to select R datasest (mtcars, state.x77, iris, InsectSprays) or to choose a .csv file.
+<p>It is possible to select R datasest (mtcars, state.x77, iris) or to choose a .csv file.
 All the variables appears after loading, and they can be selected in order to be ploted and to see their distributions.</p>
 
 <h3>Main Panel</h3>
 
-<p>The results are shown on 4 tabs :</p>
+<p>The results are shown on 6 tabs :</p>
 
 <div style='float:left;width:48%;' class='centered'>
   <ul>
 <li>Scatterplot</li>
 <li>Distribution</li>
+<li>NAs</li>
 </ul>
 
 </div>
-<div style='float:right;width:48%;'>
+<div style='float:right;width:48%;', class='centered'>
   <ul>
+<li>Correlation</li>
 <li>Summary</li>
 <li>Dataset Structure</li>
 </ul>
@@ -76,16 +78,12 @@ All the variables appears after loading, and they can be selected in order to be
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="class" id="id" style="background:;">
+<slide class="" id="slide-2" style="background:;">
   <hgroup>
     <h2>Scatterplot tab</h2>
   </hgroup>
   <article data-timings="">
     <p>The chosen variables are plotted in a scatterplot like the following :</p>
-
-<pre><code class="r">require(ggplot2)
-ggplot(data=mtcars, aes(x=hp, y=mpg)) + geom_jitter() + xlab(&quot;hp&quot;) + ylab(&quot;mpg&quot;)
-</code></pre>
 
 <p><img src="assets/fig/unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" /></p>
 
@@ -104,7 +102,7 @@ ggplot(data=mtcars, aes(x=hp, y=mpg)) + geom_jitter() + xlab(&quot;hp&quot;) + y
   <p><img src="assets/fig/unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" /></p>
 
 </div>
-<div style='float:right;width:48%;'>
+<div style='float:right;width:48%;', class='centered'>
   <p><img src="assets/fig/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" /></p>
 
 </div>
@@ -112,7 +110,35 @@ ggplot(data=mtcars, aes(x=hp, y=mpg)) + geom_jitter() + xlab(&quot;hp&quot;) + y
   <!-- Presenter Notes -->
 </slide>
 
-<slide class="class" id="id" style="background:;">
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>NAs</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This tab show the distribution of the NAs in the variables, by calculating the mean and ploting an histogram.</p>
+
+<p>Here is an exemple with a sample of an <a href="http://groupware.les.inf.puc-rio.br/har">barlift exercice dataset</a> :
+<img src="assets/fig/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Correlation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This tab shows a <em>correlation matrix plot</em>, with the corrgram() function of the corrgram package.<br>
+<strong>WARNING</strong> : it might take some time to plot this matrix, especially with severals variables.<br>
+Here is an exemple with the mtcars dataset :
+<img src="assets/fig/unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
   <hgroup>
     <h2>Summary and Structure tab</h2>
   </hgroup>
@@ -153,8 +179,20 @@ ggplot(data=mtcars, aes(x=hp, y=mpg)) + geom_jitter() + xlab(&quot;hp&quot;) + y
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=4 title='Summary and Structure tab'>
+        data-slide=4 title='NAs'>
          4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Correlation'>
+         5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='Summary and Structure tab'>
+         6
       </a>
     </li>
   </ul>
